@@ -1,0 +1,112 @@
+.\" Man page for ptouch-print
+.\"
+.\" Copyright (C) 2015-2020 Dominic Radermacher
+.\"
+.\" You may distribute under the terms of the GNU General Public License.
+.\"
+.TH PTOUCH-PRINT 1 "2020-03-04" "1.4.2" "ptouch printer util"
+.SH NAME
+ptouch-print \- a command line tool to use Brother Ptouch label printers
+.SH SYNOPSIS
+.\" The general command line
+.B ptouch-print
+.RI [\| "options" \|]\   <\| print\  command\  options\|>
+.SH DESCRIPTION
+.B ptouch-print
+is a command line tool that can be used to print labels with several
+Brother Ptouch label printers.
+
+.SH OPTIONS
+General options, font selection options and optput options are valid for the
+whole printout and should be given only once.
+Each duplication will override the previous argument value.
+
+Any of the printing command options can be given more than
+once in any order, and will be executed in the given order.
+
+.SS "General options"
+.TP
+.BR \-\-debug
+Enables printing of debugging information.
+
+.SS "Font selection options"
+.TP
+.BR \-\-fontsize\  \fI<size>
+Disable auto-detection of the font size and force the font size to the size
+given as argument. Please note that text will be cut off if you specify a
+too large font size here.
+.TP
+.BR \-\-font\  \fI<fontname>
+Set the font to the fontname given as argument.
+
+.SS "Output control options"
+.TP
+.BR \-\-writepng\  \fI<file>
+Instead of printing to the label printer, write the output in a PNG image
+file (which can be printed later using the --image printing command option).
+
+.SS "Printing command options"
+.TP
+.BR \-\-text\  \fItext
+Print the given text at the current position. Text including spaces must be
+enclosed in question marks.
+To print a text in multiple lines, give multiple text arguments.
+Also see the
+.BR EXAMPLES
+section.
+.TP
+.BR \-\-image\  \fIimage.png
+Print the image file at the current position. The image file must be a two
+color, palette based image in PNG format.
+.TP
+.BR \-\-cutmark
+Print a cutmark (dashed line) at the current position.
+.TP
+.BR \-\-pad\  \fI<n>
+Print <n> pixels of white space at the current position. Useful for printers
+that would otherwise cut off parts of the printed text or image.
+
+.SS "Getting help and display information"
+.TP
+.BR \-? ", " \-\-help
+Print a help message and exit.
+.TP
+.BR \-\-version
+Display version information and exit.
+.TP
+.BR \-\-info
+Show info about the tape detected (like printing width etc.) and exit.
+
+.SH DEFAULTS
+The default font used is 'DejaVuSans'.
+.TP
+The default fontsize is auto-detected, depending on the used tape width and font.
+
+.SH "EXIT STATUS"
+.TP
+.B 0
+Successful program execution.
+.TP
+.B 1
+Usage syntax error.
+.TP
+.B 5
+Printer device could not been opened.
+
+.SH EXAMPLES
+.TP
+\fBptouch-print\fR \fI--text\fR 'Hello World'
+Print the text 'Hello World' in one line
+.TP
+\fBptouch-print\fR \fI--text\fR 'Hello' 'World'
+Print the text 'Hello World' in two lines ('Hello' in the first line
+and 'World' in the second line).
+.TP
+\fBptouch-print\fR \fI--image\fR icon.png
+Print the image contained in the PNG image file 'icon.png'.
+The image file must be palette based PNG format with two colors.
+
+.SH AUTHOR
+Written by Dominic Radermacher (dominic@familie-radermacher.ch).
+
+Also see https://mockmoon-cybernetics.ch/computer/p-touch2430pc/
